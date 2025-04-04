@@ -1,70 +1,130 @@
-# Getting Started with Create React App
+# LegalHaze
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![LegalHaze Logo](public/images/logo.png)
 
-## Available Scripts
+## 📋 Table des matières
 
-In the project directory, you can run:
+- [À propos](#-à-propos)
+- [Fonctionnalités](#-fonctionnalités)
+- [Technologies utilisées](#-technologies-utilisées)
+- [Installation](#-installation)
+- [Utilisation](#-utilisation)
+- [Structure du projet](#-structure-du-projet)
+- [Accessibilité](#-accessibilité)
+- [Contribution](#-contribution)
+- [Licence](#-licence)
+- [Contact](#-contact)
 
-### `npm start`
+## 🌿 À propos
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+LegalHaze est une ressource éducative sur le cannabis et ses composés, fournissant des informations scientifiquement validées et accessibles à tous. Cette plateforme a été développée par Clere Kévin (PreaZy), fondateur de Clere'ly design, dans le but de promouvoir une compréhension approfondie des cannabinoïdes et de leurs effets.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## ✨ Fonctionnalités
 
-### `npm test`
+- **Guide complet** sur le cannabis et ses composés
+- **Études détaillées** sur les effets et applications
+- **Base de données** des composés du cannabis
+- **Annexes techniques** pour approfondir les connaissances
+- **Mode sombre/clair** pour une expérience personnalisée
+- **Contrôles d'accessibilité** avancés (taille de texte, contraste)
+- **Interface responsive** adaptée à tous les appareils
+- **Conformité RGPD** pour la protection des données
+- **Optimisation SEO** pour une meilleure visibilité
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🛠 Technologies utilisées
 
-### `npm run build`
+- **Frontend**: React.js, React Router
+- **Styling**: Tailwind CSS, CSS Variables
+- **Accessibilité**: WCAG 2.1 AA
+- **SEO**: React Helmet Async
+- **Tests**: Jest, React Testing Library
+- **Linting**: ESLint, Prettier
+- **Build**: Create React App
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🚀 Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clonez le dépôt :
+   ```bash
+   git clone https://github.com/PreaZy/legalhaze-place.git
+   cd legalhaze-place
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Installez les dépendances :
+   ```bash
+   npm install
+   ```
 
-### `npm run eject`
+3. Lancez l'application en mode développement :
+   ```bash
+   npm start
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. Pour construire l'application pour la production :
+   ```bash
+   npm run build
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 💻 Utilisation
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Développement** : `npm start` - Lance le serveur de développement
+- **Tests** : `npm test` - Exécute les tests
+- **Linting** : `npm run lint` - Vérifie le code avec ESLint
+- **Formatage** : `npm run format` - Formate le code avec Prettier
+- **Build** : `npm run build` - Crée une version optimisée pour la production
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📁 Structure du projet
 
-## Learn More
+```
+legalhaze-place/
+├── public/              # Fichiers statiques
+├── src/
+│   ├── components/      # Composants réutilisables
+│   ├── pages/           # Pages de l'application
+│   ├── utils/           # Utilitaires et helpers
+│   ├── styles/          # Styles globaux
+│   ├── App.js           # Composant principal
+│   └── index.js         # Point d'entrée
+├── tailwind.config.js   # Configuration Tailwind
+├── package.json         # Dépendances et scripts
+└── README.md            # Documentation
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## ♿ Accessibilité
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+LegalHaze est conçu avec une attention particulière à l'accessibilité :
 
-### Code Splitting
+- Conformité WCAG 2.1 niveau AA
+- Contrôles d'accessibilité intégrés (taille de texte, contraste)
+- Navigation au clavier optimisée
+- Compatibilité avec les lecteurs d'écran
+- Mode sombre/clair pour réduire la fatigue visuelle
+- Structure sémantique HTML
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🤝 Contribution
 
-### Analyzing the Bundle Size
+Les contributions sont les bienvenues ! Voici comment contribuer :
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. Forkez le projet
+2. Créez une branche pour votre fonctionnalité (`git checkout -b feature/amazing-feature`)
+3. Committez vos changements (`git commit -m 'Add some amazing feature'`)
+4. Pushez vers la branche (`git push origin feature/amazing-feature`)
+5. Ouvrez une Pull Request
 
-### Making a Progressive Web App
+## 📄 Licence
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
-### Advanced Configuration
+## 📧 Contact
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Pour toute question ou suggestion, n'hésitez pas à me contacter :
 
-### Deployment
+- **Développeur** : Clere Kévin (PreaZy)
+- **Société** : Clere'ly design
+- **Email** : [clerelydesign@gmail.com](mailto:clerelydesign@gmail.com)
+- **Site web** : [www.clerely-design.fr](https://www.clerely-design.fr)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<div align="center">
+  <p>Développé avec ❤️ par Clere Kévin (PreaZy) - Clere'ly design</p>
+</div>

@@ -1,0 +1,107 @@
+/* Styles pour les publicités */
+.ad-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Styles spécifiques pour chaque emplacement */
+.ad-header {
+  max-width: 100%;
+  margin: 0.5rem auto;
+  background-color: transparent;
+}
+
+.ad-sidebar {
+  position: sticky;
+  top: 2rem;
+  max-width: 100%;
+  margin: 1rem 0;
+  background-color: transparent;
+}
+
+.ad-content {
+  max-width: 100%;
+  margin: 1.5rem auto;
+  background-color: transparent;
+}
+
+.ad-footer {
+  max-width: 100%;
+  margin: 0 auto;
+  background-color: transparent;
+  text-align: center;
+}
+
+/* Styles pour le mode sombre */
+.dark .ad-container {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Styles pour le mode clair */
+.light .ad-container {
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Styles pour les appareils mobiles */
+@media (max-width: 768px) {
+  .ad-container {
+    margin: 1rem auto;
+  }
+  
+  .ad-sidebar {
+    position: static;
+    margin: 1rem auto;
+  }
+}
+
+/* Styles pour les utilisateurs qui préfèrent les mouvements réduits */
+@media (prefers-reduced-motion: reduce) {
+  .ad-container {
+    transition: none;
+  }
+}
+
+/* Styles pour les utilisateurs qui utilisent un bloqueur de publicités */
+.ad-container:empty {
+  display: none;
+}
+
+/* Styles pour les publicités non remplies */
+ins.adsbygoogle[data-ad-status="unfilled"] {
+  display: none !important;
+}
+
+/* Styles pour les publicités en mode contraste élevé */
+.high-contrast .ad-container {
+  border: 2px solid var(--color-border);
+  background-color: var(--color-background);
+}
+
+/* Styles pour le wrapper des publicités */
+.ad-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem 0;
+  max-width: 100%;
+}
+
+/* Styles pour les grands écrans */
+@media (min-width: 1280px) {
+  .ad-container {
+    max-width: 100%;
+  }
+  
+  .ad-wrapper {
+    padding: 1rem 0;
+  }
+} 
