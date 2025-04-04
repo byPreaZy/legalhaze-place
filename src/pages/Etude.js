@@ -6,10 +6,20 @@ import PdfViewer from '../components/PdfViewer';
 import EconomiqueSection from '../components/etude/EconomiqueSection';
 import SanteSection from '../components/etude/SanteSection';
 import SocialSection from '../components/etude/SocialSection';
+import InternalNavigation from '../components/InternalNavigation';
 
 const Etude = () => {
   const [showPdf, setShowPdf] = useState(false);
   const [cookieConsent, setCookieConsent] = useState(false);
+
+  // Définition des sections pour la navigation
+  const sections = [
+    { id: 'introduction', label: 'Introduction' },
+    { id: 'economique', label: 'Impacts Économiques' },
+    { id: 'social', label: 'Impacts Sociaux' },
+    { id: 'sante', label: 'Impacts Sanitaires' },
+    { id: 'conclusion', label: 'Conclusion' }
+  ];
 
   useEffect(() => {
     const consent = localStorage.getItem('cookieConsent');
@@ -54,6 +64,8 @@ const Etude = () => {
             </div>
           ) : (
             <div className="space-y-12">
+              <InternalNavigation sections={sections} />
+              
               <section id="introduction" className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
                 <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
                   Introduction
@@ -79,9 +91,17 @@ const Etude = () => {
                 </div>
               </section>
 
-              <EconomiqueSection trackInteraction={trackInteraction} />
-              <SocialSection trackInteraction={trackInteraction} />
-              <SanteSection trackInteraction={trackInteraction} />
+              <section id="economique">
+                <EconomiqueSection trackInteraction={trackInteraction} />
+              </section>
+              
+              <section id="social">
+                <SocialSection trackInteraction={trackInteraction} />
+              </section>
+              
+              <section id="sante">
+                <SanteSection trackInteraction={trackInteraction} />
+              </section>
 
               <section id="conclusion" className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
                 <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200 mb-4">

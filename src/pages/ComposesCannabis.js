@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState } from 'react';
 import PdfViewer from '../components/PdfViewer';
 import { Link } from 'react-router-dom';
+import InternalNavigation from '../components/InternalNavigation';
 
 const ComposesCannabis = () => {
   const [showPdf, setShowPdf] = useState(false);
-  const [activeSection, setActiveSection] = useState('introduction');
-  const sectionRefs = useRef({});
 
   // Mémorisation du tableau sections avec useMemo
-  const sections = useMemo(() => [
+  const sections = [
     { id: 'introduction', label: 'Introduction' },
     { id: 'composition', label: 'Composition' },
     { id: 'cannabinoides', label: 'Cannabinoïdes' },
@@ -16,55 +15,7 @@ const ComposesCannabis = () => {
     { id: 'entourage', label: 'Effet d\'Entourage' },
     { id: 'applications', label: 'Applications' },
     { id: 'references', label: 'Références' }
-  ], []); // Tableau de dépendances vide car les sections sont statiques
-
-  // Fonction pour faire défiler jusqu'à une section
-  const scrollToSection = (sectionId) => {
-    setActiveSection(sectionId);
-    if (sectionRefs.current[sectionId]) {
-      const headerOffset = 80; // Hauteur approximative de la barre de navigation
-      const elementPosition = sectionRefs.current[sectionId].getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
-
-  // Observer pour détecter quelle section est visible
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { 
-        threshold: 0.5,
-        rootMargin: '-80px 0px 0px 0px' // Compense la hauteur de la barre de navigation
-      }
-    );
-
-    sections.forEach(section => {
-      const element = document.getElementById(section.id);
-      if (element) {
-        observer.observe(element);
-      }
-    });
-
-    return () => {
-      sections.forEach(section => {
-        const element = document.getElementById(section.id);
-        if (element) {
-          observer.unobserve(element);
-        }
-      });
-    };
-  }, [sections]); // Ajout de la dépendance manquante
+  ];
 
   // Références pour les sources
   const references = [
@@ -118,30 +69,11 @@ const ComposesCannabis = () => {
       ) : (
         <div className="space-y-12 animate-fade-in">
           {/* Navigation des sections */}
-          <nav className="bg-white p-4 rounded-xl shadow-md sticky top-4 z-10">
-            <ul className="flex flex-wrap gap-4 justify-center">
-              {sections.map(section => (
-                <li key={section.id}>
-                  <button
-                    onClick={() => scrollToSection(section.id)}
-                    className={`px-4 py-2 rounded-lg transition-all duration-300 ${
-                      activeSection === section.id
-                        ? 'bg-brand-primary text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                    aria-current={activeSection === section.id ? 'page' : undefined}
-                  >
-                    {section.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <InternalNavigation sections={sections} />
 
           {/* Introduction */}
           <section 
             id="introduction" 
-            ref={el => sectionRefs.current['introduction'] = el}
             className="bg-white p-8 rounded-xl shadow-md"
           >
             <h2 className="text-2xl font-semibold mb-6 text-brand-primary">Introduction</h2>
@@ -159,7 +91,6 @@ const ComposesCannabis = () => {
           {/* Composition */}
           <section 
             id="composition" 
-            ref={el => sectionRefs.current['composition'] = el}
             className="bg-white p-8 rounded-xl shadow-md"
           >
             <h2 className="text-2xl font-semibold mb-6 text-brand-primary">Composition du Cannabis</h2>
@@ -176,7 +107,6 @@ const ComposesCannabis = () => {
           {/* Cannabinoïdes */}
           <section 
             id="cannabinoides" 
-            ref={el => sectionRefs.current['cannabinoides'] = el}
             className="bg-white p-8 rounded-xl shadow-md"
           >
             <h2 className="text-2xl font-semibold mb-6 text-brand-primary">Cannabinoïdes</h2>
@@ -225,7 +155,6 @@ const ComposesCannabis = () => {
           {/* Terpènes */}
           <section 
             id="terpenes" 
-            ref={el => sectionRefs.current['terpenes'] = el}
             className="bg-white p-8 rounded-xl shadow-md"
           >
             <h2 className="text-2xl font-semibold mb-6 text-brand-primary">Terpènes</h2>
@@ -267,7 +196,6 @@ const ComposesCannabis = () => {
           {/* Effet d'Entourage */}
           <section 
             id="entourage" 
-            ref={el => sectionRefs.current['entourage'] = el}
             className="bg-white p-8 rounded-xl shadow-md"
           >
             <h2 className="text-2xl font-semibold mb-6 text-brand-primary">Effet d'Entourage</h2>
@@ -301,7 +229,6 @@ const ComposesCannabis = () => {
           {/* Applications Thérapeutiques */}
           <section 
             id="applications" 
-            ref={el => sectionRefs.current['applications'] = el}
             className="bg-white p-8 rounded-xl shadow-md"
           >
             <h2 className="text-2xl font-semibold mb-6 text-brand-primary">Applications Thérapeutiques</h2>
@@ -335,7 +262,6 @@ const ComposesCannabis = () => {
           {/* Références */}
           <section 
             id="references" 
-            ref={el => sectionRefs.current['references'] = el}
             className="bg-white p-8 rounded-xl shadow-md"
           >
             <h2 className="text-2xl font-semibold mb-6 text-brand-primary">Références</h2>
