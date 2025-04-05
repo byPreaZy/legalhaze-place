@@ -50,7 +50,7 @@ const Navbar = () => {
           >
             <div className="w-20 h-20">
               <img
-                src="/images/logo.png"
+                src={`${process.env.PUBLIC_URL}/assets/images/logo.png`}
                 alt="Logo LegalHaze"
                 className="w-full h-full object-contain"
                 width="80"
