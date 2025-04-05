@@ -15,7 +15,7 @@ Nous prenons la sécurité de notre projet très au sérieux. Si vous découvrez
 ### Comment Signaler
 
 1. **Ne créez PAS d'issue publique** pour signaler une vulnérabilité de sécurité.
-2. Envoyez un email à [VOTRE_EMAIL] avec les détails de la vulnérabilité.
+2. Envoyez un email à [kevin.venidici.clere@gmail.com] avec les détails de la vulnérabilité.
 3. Incluez autant d'informations que possible sur la vulnérabilité, notamment :
    - Type de vulnérabilité
    - Étapes pour reproduire le problème
