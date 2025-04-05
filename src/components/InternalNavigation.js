@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
+import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 
 const InternalNavigation = ({ sections }) => {
   const [activeSection, setActiveSection] = useState('introduction');
   const [isScrolling, setIsScrolling] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const scrollTimeout = useRef(null);
   const location = useLocation();
   const lastScrollTime = useRef(Date.now());
   const scrollEndTimeout = useRef(null);
+  const scrollContainerRef = useRef(null);
   
   // Fonction pour faire défiler jusqu'à une section
   const scrollToSection = useCallback((sectionId) => {
@@ -141,31 +144,91 @@ const InternalNavigation = ({ sections }) => {
     };
   }, []);
 
+  // Fonction pour faire défiler horizontalement jusqu'au bouton actif sur mobile
+  useEffect(() => {
+    if (scrollContainerRef.current && window.innerWidth < 768) {
+      const activeButton = scrollContainerRef.current.querySelector(`[data-section="${activeSection}"]`);
+      if (activeButton) {
+        const scrollLeft = activeButton.offsetLeft - (scrollContainerRef.current.offsetWidth / 2) + (activeButton.offsetWidth / 2);
+        scrollContainerRef.current.scrollTo({
+          left: scrollLeft,
+          behavior: 'smooth'
+        });
+      }
+    }
+  }, [activeSection]);
+
+  const activeLabel = sections.find(section => section.id === activeSection)?.label || sections[0].label;
+
   return (
-    <nav 
-      className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md sticky top-4 z-10 transition-colors duration-300"
-      role="navigation" 
-      aria-label="Navigation interne"
-    >
-      <ul className="flex flex-wrap gap-4 justify-center">
-        {sections.map(section => (
-          <li key={section.id}>
-            <button
-              onClick={() => scrollToSection(section.id)}
-              className={`px-4 py-2 rounded-lg transition-all duration-300 ${
-                activeSection === section.id
-                  ? 'bg-brand-primary text-white'
-                  : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-              }`}
-              aria-current={activeSection === section.id ? 'page' : undefined}
-              aria-label={`Aller à la section ${section.label}`}
-            >
-              {section.label}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </nav>
+    <div className="sticky top-4 z-10">
+      {/* Version mobile avec menu déroulant */}
+      <div className="md:hidden bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="w-full px-4 py-3 flex items-center justify-between bg-brand-primary text-white"
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-nav-menu"
+        >
+          <span className="font-medium">{activeLabel}</span>
+          {isMenuOpen ? <FaChevronDown className="w-4 h-4" /> : <FaChevronRight className="w-4 h-4" />}
+        </button>
+        
+        {isMenuOpen && (
+          <div 
+            id="mobile-nav-menu"
+            className="max-h-[40vh] overflow-y-auto"
+          >
+            <ul className="py-2">
+              {sections.map(section => (
+                <li key={section.id}>
+                  <button
+                    onClick={() => {
+                      scrollToSection(section.id);
+                      setIsMenuOpen(false);
+                    }}
+                    className={`w-full px-4 py-2 text-left transition-colors ${
+                      activeSection === section.id
+                        ? 'bg-brand-primary/10 text-brand-primary dark:text-brand-accent'
+                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                    }`}
+                    aria-current={activeSection === section.id ? 'page' : undefined}
+                  >
+                    {section.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+
+      {/* Version desktop avec tous les boutons visibles */}
+      <nav 
+        className="hidden md:block bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md transition-colors duration-300"
+        role="navigation" 
+        aria-label="Navigation interne"
+      >
+        <ul className="flex flex-wrap gap-4 justify-center">
+          {sections.map(section => (
+            <li key={section.id}>
+              <button
+                onClick={() => scrollToSection(section.id)}
+                className={`px-4 py-2 rounded-lg transition-all duration-300 ${
+                  activeSection === section.id
+                    ? 'bg-brand-primary text-white'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                }`}
+                aria-current={activeSection === section.id ? 'page' : undefined}
+                aria-label={`Aller à la section ${section.label}`}
+              >
+                {section.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
   );
 };
 

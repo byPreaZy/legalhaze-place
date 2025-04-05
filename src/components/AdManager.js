@@ -14,43 +14,55 @@ const AdManager = ({ location = 'content', showAds = true }) => {
   useEffect(() => {
     // Vérifier si AdSense est prêt
     const checkAdSense = () => {
-      if (window.adsbygoogle && window.adsbygoogle.loaded) {
+      if (window.adsbygoogle?.loaded) {
         setIsAdSenseReady(true);
-      } else {
-        // Attendre que AdSense soit chargé
-        const checkInterval = setInterval(() => {
-          if (window.adsbygoogle && window.adsbygoogle.loaded) {
-            setIsAdSenseReady(true);
-            clearInterval(checkInterval);
-          }
-        }, 100);
-
-        // Arrêter la vérification après 10 secondes
-        setTimeout(() => {
-          clearInterval(checkInterval);
-          if (!isAdSenseReady) {
-            console.warn('AdSense failed to load within timeout');
-          }
-        }, 10000);
+        return true;
       }
+      return false;
     };
 
     // Vérifier si AdBlock est actif
     const checkAdBlock = async () => {
       try {
-        const response = await fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js');
-        setIsAdBlocked(!response.ok);
-        if (response.ok) {
-          checkAdSense();
+        const testAd = document.createElement('div');
+        testAd.innerHTML = '&nbsp;';
+        testAd.className = 'adsbox';
+        document.body.appendChild(testAd);
+        
+        // Attendre un court instant pour que AdBlock agisse
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        const isBlocked = testAd.offsetHeight === 0;
+        document.body.removeChild(testAd);
+        
+        setIsAdBlocked(isBlocked);
+        if (!isBlocked && !checkAdSense()) {
+          const checkInterval = setInterval(() => {
+            if (checkAdSense()) {
+              clearInterval(checkInterval);
+            }
+          }, 200);
+
+          // Arrêter la vérification après 5 secondes
+          setTimeout(() => {
+            clearInterval(checkInterval);
+          }, 5000);
         }
       } catch (error) {
+        console.warn('Erreur lors de la vérification AdBlock:', error);
         setIsAdBlocked(true);
-        console.warn('AdBlock detected or network error:', error);
       }
     };
     
-    checkAdBlock();
-  }, [isAdSenseReady]);
+    // Ne vérifier que si les publicités sont activées
+    if (showAds) {
+      checkAdBlock();
+    }
+
+    return () => {
+      // Nettoyage si nécessaire
+    };
+  }, [showAds]);
 
   // Si les publicités sont désactivées ou si AdBlock est actif, ne rien afficher
   if (!showAds || isAdBlocked || !isAdSenseReady) {
@@ -60,24 +72,28 @@ const AdManager = ({ location = 'content', showAds = true }) => {
   // Configuration des publicités en fonction de l'emplacement
   const adConfig = {
     header: {
-      slot: 'header-ad',
+      slot: '1234567890', // Remplacez par votre vrai slot ID
       format: 'auto',
-      responsive: true
+      responsive: true,
+      style: { minHeight: '90px' }
     },
     sidebar: {
-      slot: 'sidebar-ad',
+      slot: '0987654321', // Remplacez par votre vrai slot ID
       format: 'vertical',
-      responsive: false
+      responsive: false,
+      style: { minHeight: '600px' }
     },
     content: {
-      slot: 'content-ad',
+      slot: '1357924680', // Remplacez par votre vrai slot ID
       format: 'auto',
-      responsive: true
+      responsive: true,
+      style: { minHeight: '250px' }
     },
     footer: {
-      slot: 'footer-ad',
+      slot: '2468013579', // Remplacez par votre vrai slot ID
       format: 'auto',
-      responsive: true
+      responsive: true,
+      style: { minHeight: '90px' }
     }
   };
 

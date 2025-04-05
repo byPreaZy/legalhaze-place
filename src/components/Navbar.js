@@ -36,7 +36,7 @@ const Navbar = () => {
 
   return (
     <nav 
-      className="bg-white dark:bg-gray-900 shadow-md"
+      className="bg-white dark:bg-gray-900 shadow-md relative z-50"
       role="navigation"
       aria-label="Navigation principale"
     >
@@ -140,15 +140,18 @@ const Navbar = () => {
         </div>
 
         {/* Menu mobile */}
-        <div 
-          id="mobile-menu"
+        <div
           ref={menuRef}
-          className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'} pb-6`}
-          role="menu"
-          aria-labelledby="menu-button"
-          aria-hidden={!isMenuOpen}
+          id="mobile-menu"
+          className={`md:hidden bg-white dark:bg-gray-900 absolute left-0 right-0 z-40 shadow-lg transform transition-transform duration-300 ease-in-out ${
+            isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+          }`}
+          inert={!isMenuOpen ? "true" : undefined}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu principal"
         >
-          <div className="flex flex-col space-y-4">
+          <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             <Link 
               to="/guide" 
               className="text-lg text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors py-3 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -177,7 +180,10 @@ const Navbar = () => {
               Composés
             </Link>
             <button
-              onClick={toggleTheme}
+              onClick={() => {
+                toggleTheme();
+                setIsMenuOpen(false);
+              }}
               className="text-left text-lg text-gray-700 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition-colors py-3 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
               aria-label={theme === 'dark' ? 'Passer au mode clair' : 'Passer au mode sombre'}
               role="menuitem"
