@@ -1,3 +1,4 @@
+/* Les directives @tailwind sont nécessaires pour Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,6 +38,14 @@
 .high-contrast button:hover {
   background-color: var(--color-primary) !important;
   color: var(--color-background) !important;
+}
+
+/* Styles pour la réduction de mouvement */
+.reduced-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
 }
 
 /* Styles de base */
@@ -87,6 +96,9 @@
   --transition-fast: 150ms;
   --transition-normal: 300ms;
   --transition-slow: 500ms;
+  
+  /* Hauteur de ligne */
+  --line-height: 1.5;
 }
 
 /* Mode sombre */
@@ -137,6 +149,7 @@ a {
   color: var(--color-primary);
   text-decoration: none;
   transition: color var(--transition-normal);
+  line-height: var(--line-height);
 }
 
 a:hover {
@@ -182,4 +195,66 @@ input, textarea, select {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-text-secondary);
+}
+
+/* Styles pour l'accessibilité */
+p, h1, h2, h3, h4, h5, h6, li, td, th, div, span {
+  line-height: var(--line-height);
+}
+
+/* Styles pour les tableaux */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+th, td {
+  padding: 0.75rem;
+  border: 1px solid var(--color-border);
+}
+
+th {
+  background-color: var(--color-background-secondary);
+  font-weight: var(--font-weight-bold);
+  text-align: left;
+}
+
+/* Styles pour les listes */
+ul, ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+/* Styles pour les citations */
+blockquote {
+  border-left: 4px solid var(--color-primary);
+  padding-left: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+  font-style: italic;
+}
+
+/* Styles pour le code */
+code, pre {
+  font-family: monospace;
+  background-color: var(--color-background-secondary);
+  padding: 0.2rem 0.4rem;
+  border-radius: var(--border-radius-sm);
+}
+
+pre {
+  padding: 1rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+/* Styles pour les abréviations */
+abbr {
+  text-decoration: underline dotted;
+  cursor: help;
 }

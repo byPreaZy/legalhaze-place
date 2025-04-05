@@ -1,7 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { 
-  calculateContrastRatio, 
-  isContrastRatioCompliant,
   adjustColorForContrast
 } from '../utils/colorUtils';
 
@@ -44,14 +42,7 @@ export const ContrastProvider = ({ children }) => {
 
   const value = {
     colors: contrastColors,
-    setColors,
-    isContrastCompliant: (color1, color2, level = 'AA') => {
-      const ratio = calculateContrastRatio(color1, color2);
-      return isContrastRatioCompliant(ratio, level);
-    },
-    getContrastRatio: (color1, color2) => {
-      return calculateContrastRatio(color1, color2);
-    }
+    updateColors: setColors,
   };
 
   return (
