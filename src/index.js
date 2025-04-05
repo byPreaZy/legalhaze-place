@@ -4,7 +4,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import './index.css';
 import './styles/ads.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +14,5 @@ root.render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// Si vous souhaitez mesurer les performances de votre application, vous pouvez utiliser
+// des outils comme Google Analytics ou d'autres services d'analyse.

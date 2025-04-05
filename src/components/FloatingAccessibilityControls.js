@@ -74,9 +74,6 @@ const FloatingAccessibilityControls = () => {
               : 'opacity-0 translate-y-4 pointer-events-none'
           }`}
         >
-          <div className="mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-            Options d'accessibilité
-          </div>
           <AccessibilityControls isFloating={true} />
         </div>
       </div>
