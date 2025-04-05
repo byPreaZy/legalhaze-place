@@ -220,21 +220,51 @@ const AnnexeB = () => {
               <FaChartBar className="text-brand-primary dark:text-brand-accent" />
               <h4 className="font-medium text-gray-800 dark:text-gray-200">Efficacité comparative</h4>
             </div>
-            <Bar 
-              data={donneesEfficacite} 
-              options={{
-                responsive: true,
-                plugins: {
-                  legend: {
-                    position: 'top',
+            <div className="h-[300px] md:h-[400px]">
+              <Bar 
+                data={donneesEfficacite} 
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      position: 'top',
+                      labels: {
+                        boxWidth: 12,
+                        padding: 10,
+                        font: {
+                          size: window.innerWidth < 768 ? 10 : 12
+                        }
+                      }
+                    },
+                    title: {
+                      display: true,
+                      text: 'Efficacité thérapeutique comparée',
+                      font: {
+                        size: window.innerWidth < 768 ? 14 : 16
+                      }
+                    }
                   },
-                  title: {
-                    display: true,
-                    text: 'Efficacité thérapeutique comparée'
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                      ticks: {
+                        font: {
+                          size: window.innerWidth < 768 ? 10 : 12
+                        }
+                      }
+                    },
+                    x: {
+                      ticks: {
+                        font: {
+                          size: window.innerWidth < 768 ? 10 : 12
+                        }
+                      }
+                    }
                   }
-                }
-              }}
-            />
+                }}
+              />
+            </div>
           </div>
           
           <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
@@ -242,21 +272,51 @@ const AnnexeB = () => {
               <FaChartLine className="text-brand-primary dark:text-brand-accent" />
               <h4 className="font-medium text-gray-800 dark:text-gray-200">Réduction de la douleur</h4>
             </div>
-            <Line 
-              data={donneesReductionDouleur} 
-              options={{
-                responsive: true,
-                plugins: {
-                  legend: {
-                    position: 'top',
+            <div className="h-[300px] md:h-[400px]">
+              <Line 
+                data={donneesReductionDouleur} 
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      position: 'top',
+                      labels: {
+                        boxWidth: 12,
+                        padding: 10,
+                        font: {
+                          size: window.innerWidth < 768 ? 10 : 12
+                        }
+                      }
+                    },
+                    title: {
+                      display: true,
+                      text: 'Évolution de la réduction de la douleur (%)',
+                      font: {
+                        size: window.innerWidth < 768 ? 14 : 16
+                      }
+                    }
                   },
-                  title: {
-                    display: true,
-                    text: 'Évolution de la réduction de la douleur (%)'
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                      ticks: {
+                        font: {
+                          size: window.innerWidth < 768 ? 10 : 12
+                        }
+                      }
+                    },
+                    x: {
+                      ticks: {
+                        font: {
+                          size: window.innerWidth < 768 ? 10 : 12
+                        }
+                      }
+                    }
                   }
-                }
-              }}
-            />
+                }}
+              />
+            </div>
           </div>
           
           <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg md:col-span-2">
@@ -264,7 +324,7 @@ const AnnexeB = () => {
               <FaChartPie className="text-brand-primary dark:text-brand-accent" />
               <h4 className="font-medium text-gray-800 dark:text-gray-200">Distribution des études par pathologie</h4>
             </div>
-            <div className="h-64">
+            <div className="h-[300px] md:h-[400px]">
               <Pie 
                 data={donneesDistribution} 
                 options={{
@@ -272,11 +332,21 @@ const AnnexeB = () => {
                   maintainAspectRatio: false,
                   plugins: {
                     legend: {
-                      position: 'right',
+                      position: window.innerWidth < 768 ? 'bottom' : 'right',
+                      labels: {
+                        boxWidth: 12,
+                        padding: 10,
+                        font: {
+                          size: window.innerWidth < 768 ? 10 : 12
+                        }
+                      }
                     },
                     title: {
                       display: true,
-                      text: 'Répartition des études par pathologie'
+                      text: 'Répartition des études par pathologie',
+                      font: {
+                        size: window.innerWidth < 768 ? 14 : 16
+                      }
                     }
                   }
                 }}

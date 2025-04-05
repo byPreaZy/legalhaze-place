@@ -463,23 +463,36 @@ const AnnexeC = () => {
           <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
             <div className="flex items-center gap-2 mb-3">
               <FaChartPie className="text-brand-primary dark:text-brand-accent" />
-              <h4 className="font-medium text-gray-800 dark:text-gray-200">Statut légal du cannabis par pays</h4>
+              <h4 className="font-medium text-gray-800 dark:text-gray-200">Statut légal du cannabis</h4>
             </div>
-            <Pie 
-              data={donneesStatutLegal} 
-              options={{
-                responsive: true,
-                plugins: {
-                  legend: {
-                    position: 'right',
-                  },
-                  title: {
-                    display: true,
-                    text: 'Distribution des statuts légaux'
+            <div className="h-[300px] md:h-[400px]">
+              <Pie 
+                data={donneesStatutLegal} 
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      position: window.innerWidth < 768 ? 'bottom' : 'right',
+                      labels: {
+                        boxWidth: 12,
+                        padding: 10,
+                        font: {
+                          size: window.innerWidth < 768 ? 10 : 12
+                        }
+                      }
+                    },
+                    title: {
+                      display: true,
+                      text: 'Distribution des statuts légaux',
+                      font: {
+                        size: window.innerWidth < 768 ? 14 : 16
+                      }
+                    }
                   }
-                }
-              }}
-            />
+                }}
+              />
+            </div>
           </div>
           
           <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
@@ -487,29 +500,59 @@ const AnnexeC = () => {
               <FaChartLine className="text-brand-primary dark:text-brand-accent" />
               <h4 className="font-medium text-gray-800 dark:text-gray-200">Évolution de la légalisation</h4>
             </div>
-            <Line 
-              data={donneesEvolution} 
-              options={{
-                responsive: true,
-                plugins: {
-                  legend: {
-                    position: 'top',
+            <div className="h-[300px] md:h-[400px]">
+              <Line 
+                data={donneesEvolution} 
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      position: 'top',
+                      labels: {
+                        boxWidth: 12,
+                        padding: 10,
+                        font: {
+                          size: window.innerWidth < 768 ? 10 : 12
+                        }
+                      }
+                    },
+                    title: {
+                      display: true,
+                      text: 'Nombre de pays ayant légalisé le cannabis',
+                      font: {
+                        size: window.innerWidth < 768 ? 14 : 16
+                      }
+                    }
                   },
-                  title: {
-                    display: true,
-                    text: 'Nombre de pays ayant légalisé le cannabis'
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                      ticks: {
+                        font: {
+                          size: window.innerWidth < 768 ? 10 : 12
+                        }
+                      }
+                    },
+                    x: {
+                      ticks: {
+                        font: {
+                          size: window.innerWidth < 768 ? 10 : 12
+                        }
+                      }
+                    }
                   }
-                }
-              }}
-            />
+                }}
+              />
+            </div>
           </div>
           
           <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg md:col-span-2">
             <div className="flex items-center gap-2 mb-3">
               <FaChartBar className="text-brand-primary dark:text-brand-accent" />
-              <h4 className="font-medium text-gray-800 dark:text-gray-200">Utilisation médicale du cannabis</h4>
+              <h4 className="font-medium text-gray-800 dark:text-gray-200">Utilisation médicale</h4>
             </div>
-            <div className="h-64">
+            <div className="h-[300px] md:h-[400px]">
               <Bar 
                 data={donneesUtilisation} 
                 options={{
@@ -517,11 +560,38 @@ const AnnexeC = () => {
                   maintainAspectRatio: false,
                   plugins: {
                     legend: {
-                      display: false,
+                      position: 'top',
+                      labels: {
+                        boxWidth: 12,
+                        padding: 10,
+                        font: {
+                          size: window.innerWidth < 768 ? 10 : 12
+                        }
+                      }
                     },
                     title: {
                       display: true,
-                      text: 'Répartition des indications thérapeutiques'
+                      text: 'Répartition des indications thérapeutiques',
+                      font: {
+                        size: window.innerWidth < 768 ? 14 : 16
+                      }
+                    }
+                  },
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                      ticks: {
+                        font: {
+                          size: window.innerWidth < 768 ? 10 : 12
+                        }
+                      }
+                    },
+                    x: {
+                      ticks: {
+                        font: {
+                          size: window.innerWidth < 768 ? 10 : 12
+                        }
+                      }
                     }
                   }
                 }}

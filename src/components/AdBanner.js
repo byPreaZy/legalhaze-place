@@ -18,29 +18,73 @@ const AdBanner = ({
 }) => {
   const adRef = useRef(null);
   const isLoaded = useRef(false);
+  const retryCount = useRef(0);
+  const maxRetries = 3;
 
   useEffect(() => {
-    // Vérifier si le script AdSense est déjà chargé
-    if (!window.adsbygoogle) {
-      console.warn('Google AdSense script not loaded');
-      return;
-    }
+    let isMounted = true;
+    let currentAdElement = adRef.current;
 
-    // Ne charger la publicité qu'une seule fois
-    if (!isLoaded.current && adRef.current) {
-      try {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-        isLoaded.current = true;
-      } catch (error) {
-        console.error('Error loading AdSense ad:', error);
+    const loadAd = async () => {
+      if (!isLoaded.current && currentAdElement && isMounted) {
+        try {
+          // Vérifier si AdSense est disponible
+          if (typeof window.adsbygoogle === 'undefined') {
+            throw new Error('AdSense not initialized');
+          }
+
+          // Réinitialiser l'élément avant de charger une nouvelle annonce
+          if (currentAdElement) {
+            currentAdElement.innerHTML = '';
+          }
+          
+          // Attendre que le DOM soit complètement chargé
+          await new Promise(resolve => setTimeout(resolve, 100));
+          
+          // Vérifier si le composant est toujours monté
+          if (!isMounted || !currentAdElement) return;
+          
+          // Ajouter la classe après le délai
+          currentAdElement.className = 'adsbygoogle';
+
+          // Charger l'annonce
+          try {
+            await (window.adsbygoogle = window.adsbygoogle || []).push({});
+            if (isMounted) {
+              isLoaded.current = true;
+              retryCount.current = 0;
+            }
+          } catch (pushError) {
+            console.warn('Error pushing ad:', pushError);
+            if (isMounted && retryCount.current < maxRetries) {
+              retryCount.current++;
+              setTimeout(loadAd, 1000);
+            }
+          }
+        } catch (error) {
+          console.error('Error loading AdSense ad:', error);
+          if (isMounted && retryCount.current < maxRetries) {
+            retryCount.current++;
+            setTimeout(loadAd, 1000);
+          }
+        }
       }
-    }
-
-    // Nettoyage lors du démontage du composant
-    return () => {
-      isLoaded.current = false;
     };
-  }, []);
+
+    loadAd();
+
+    return () => {
+      isMounted = false;
+      isLoaded.current = false;
+      retryCount.current = 0;
+      
+      // Utiliser la référence capturée pour le nettoyage
+      if (currentAdElement) {
+        currentAdElement.innerHTML = '';
+        currentAdElement.className = '';
+      }
+    };
+  }, [slot]); // slot est la seule dépendance nécessaire
 
   // Styles par défaut pour une intégration discrète
   const defaultStyle = {
@@ -50,6 +94,8 @@ const AdBanner = ({
     overflow: 'hidden',
     width: '100%',
     maxWidth: '100%',
+    minHeight: '100px',
+    backgroundColor: 'transparent',
     ...style
   };
 
@@ -62,13 +108,13 @@ const AdBanner = ({
     >
       <ins
         ref={adRef}
-        className="adsbygoogle"
         style={{ 
           display: 'block',
           width: '100%',
-          maxWidth: '100%'
+          maxWidth: '100%',
+          minHeight: style.minHeight || '100px'
         }}
-        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+        data-ad-client="ca-pub-9636110648577560"
         data-ad-slot={slot}
         data-ad-format={format}
         data-full-width-responsive={responsive}

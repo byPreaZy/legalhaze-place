@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import Navbar from './components/Navbar';
@@ -20,6 +20,7 @@ import FloatingAccessibilityControls from './components/FloatingAccessibilityCon
 import FloatingThemeToggle from './components/FloatingThemeToggle';
 import CookieBanner from './components/CookieBanner';
 import ScrollToTop from './components/ScrollToTop';
+import { initializeAdsense } from './utils/adsense';
 import './App.css';
 
 // Configuration des flags futurs de React Router
@@ -31,6 +32,11 @@ const routerConfig = {
 };
 
 function App() {
+  useEffect(() => {
+    // Initialiser AdSense une seule fois au chargement de l'application
+    initializeAdsense();
+  }, []);
+
   return (
     <ThemeProvider>
       <ContrastProvider>

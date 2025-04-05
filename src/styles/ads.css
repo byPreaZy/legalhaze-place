@@ -1,3 +1,79 @@
+/* Styles pour les conteneurs de publicités */
+.ad-container {
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.ad-container:empty {
+  display: none;
+}
+
+/* Styles pour les différents emplacements */
+.header-ad {
+  margin: 1rem auto;
+  min-height: 90px;
+}
+
+.sidebar-ad {
+  margin: 1rem 0;
+  min-height: 600px;
+}
+
+.content-ad {
+  margin: 2rem auto;
+  min-height: 250px;
+}
+
+.footer-ad {
+  margin: 1rem auto;
+  min-height: 90px;
+}
+
+/* Styles pour les annonces non chargées */
+ins.adsbygoogle[data-ad-status="unfilled"] {
+  display: none !important;
+}
+
+/* Animation de chargement */
+@keyframes adFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.ad-container ins.adsbygoogle {
+  animation: adFadeIn 0.5s ease-in-out;
+}
+
+/* Styles pour le mode sombre */
+@media (prefers-color-scheme: dark) {
+  .ad-container {
+    background-color: transparent;
+  }
+}
+
+/* Styles responsive */
+@media (max-width: 768px) {
+  .sidebar-ad {
+    min-height: 250px;
+  }
+  
+  .header-ad,
+  .footer-ad {
+    min-height: 50px;
+  }
+}
+
+/* Styles d'accessibilité */
+.ad-container[aria-label="Publicité"] {
+  outline: none;
+}
+
+.ad-container:focus-within {
+  outline: 2px solid #4A90E2;
+  outline-offset: 2px;
+}
+
 /* Styles pour les publicités */
 .ad-container {
   position: relative;
@@ -67,16 +143,6 @@
   .ad-container {
     transition: none;
   }
-}
-
-/* Styles pour les utilisateurs qui utilisent un bloqueur de publicités */
-.ad-container:empty {
-  display: none;
-}
-
-/* Styles pour les publicités non remplies */
-ins.adsbygoogle[data-ad-status="unfilled"] {
-  display: none !important;
 }
 
 /* Styles pour les publicités en mode contraste élevé */
