@@ -24,6 +24,7 @@ import { initializeAdsense } from './utils/adsense';
 import { initGA, pageview, checkAnalyticsConsent } from './utils/analytics';
 import { setupGlobalErrorHandler } from './utils/errorHandler';
 import './styles/App.css';
+import './styles/ads.css';
 
 // Configuration des flags futurs de React Router
 const routerConfig = {

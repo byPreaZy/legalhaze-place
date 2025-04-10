@@ -23,6 +23,7 @@ LegalHaze est une application web qui fournit des informations détaillées et s
 - 🎨 Interface utilisateur moderne et intuitive
 - 🔄 Gestion des versions et mises à jour
 - 📈 Analytics et suivi des erreurs
+- 💰 Intégration Google AdSense optimisée
 
 ## 🛠️ Technologies Utilisées
 
@@ -34,6 +35,7 @@ LegalHaze est une application web qui fournit des informations détaillées et s
   - React Helmet (SEO)
   - Chart.js
   - Google Analytics
+  - Google AdSense
 
 - **Outils de Développement:**
   - ESLint
@@ -68,6 +70,7 @@ L'application sera accessible à l'adresse [http://localhost:3000](http://localh
 - `npm test` : Lance les tests
 - `npm run lint` : Vérifie le code avec ESLint
 - `npm run format` : Formate le code avec Prettier
+- `npm run deploy` : Déploie l'application sur GitHub Pages
 
 ## 🌐 Normes et Conformité
 
@@ -91,10 +94,21 @@ L'application utilise un système de thèmes personnalisable via TailwindCSS ave
 legalhaze-place/
 ├── src/
 │   ├── components/     # Composants réutilisables
+│   │   ├── AD/        # Composants de gestion des publicités
 │   │   ├── layout/    # Composants de mise en page
 │   │   ├── guide/     # Composants du guide
-│   │   └── etude/     # Composants des études
+│   │   ├── etude/     # Composants des études
+│   │   ├── annexes/   # Composants des annexes
+│   │   └── composes/  # Composants des composés
 │   ├── pages/         # Pages principales
+│   │   ├── Home.js    # Page d'accueil
+│   │   ├── Guide.js   # Guide sur le cannabis
+│   │   ├── Etude.js   # Études comparatives
+│   │   ├── ComposesCannabis.js # Composés du cannabis
+│   │   ├── Annexes.js # Annexes et ressources
+│   │   └── ...        # Autres pages
+│   ├── hooks/         # Hooks personnalisés
+│   │   └── useAdCache.js # Gestion du cache des publicités
 │   ├── utils/         # Utilitaires et helpers
 │   ├── styles/        # Styles globaux
 │   └── config/        # Configuration (version, thèmes, etc.)
@@ -108,6 +122,15 @@ Le projet utilise un système de versioning simple :
 - Version de l'application dans `src/config/version.js`
 - Date de mise à jour des études configurable
 - Historique des modifications documenté
+
+## 💰 Gestion des Publicités
+
+Le projet intègre Google AdSense avec :
+- Système de cache pour optimiser les performances
+- Gestion des erreurs et rechargement intelligent
+- Support du mode sombre/clair
+- Respect des normes d'accessibilité
+- Intégration responsive sur tous les appareils
 
 ## 🤝 Contribution
 

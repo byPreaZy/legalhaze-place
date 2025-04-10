@@ -1,126 +1,119 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
+import { useAdCache } from '../../hooks/useAdCache';
+import PropTypes from 'prop-types';
 
 /**
- * Composant pour afficher une bannière publicitaire Google AdSense
+ * Composant pour afficher une bannière publicitaire AdSense
  * @param {Object} props - Propriétés du composant
- * @param {string} props.slot - Identifiant de l'emplacement publicitaire
- * @param {string} props.format - Format de la publicité (auto, fluid, rectangle, etc.)
- * @param {string} props.style - Styles CSS supplémentaires
+ * @param {string} props.slot - ID du slot publicitaire
+ * @param {string} props.format - Format de la publicité (auto, vertical, horizontal)
  * @param {boolean} props.responsive - Si la publicité doit être responsive
- * @param {string} props.className - Classes CSS supplémentaires
+ * @param {Object} props.style - Styles CSS additionnels
+ * @param {string} props.path - Chemin actuel pour forcer le rechargement lors du changement de page
  */
-const AdBanner = ({ 
+const AdBanner = React.memo(({ 
   slot, 
   format = 'auto', 
+  responsive = true, 
   style = {}, 
-  responsive = true,
-  className = ''
+  path = window.location.pathname 
 }) => {
   const adRef = useRef(null);
-  const isLoaded = useRef(false);
-  const retryCount = useRef(0);
-  const maxRetries = 3;
+  const { isLoading, error } = useAdCache(slot);
+  const [adStatus, setAdStatus] = useState('loading');
 
   useEffect(() => {
-    let isMounted = true;
-    let currentAdElement = adRef.current;
-
-    const loadAd = async () => {
-      if (!isLoaded.current && currentAdElement && isMounted) {
-        try {
-          // Vérifier si AdSense est disponible
-          if (typeof window.adsbygoogle === 'undefined') {
-            throw new Error('AdSense not initialized');
-          }
-
-          // Réinitialiser l'élément avant de charger une nouvelle annonce
-          if (currentAdElement) {
-            currentAdElement.innerHTML = '';
-          }
-          
-          // Attendre que le DOM soit complètement chargé
-          await new Promise(resolve => setTimeout(resolve, 100));
-          
-          // Vérifier si le composant est toujours monté
-          if (!isMounted || !currentAdElement) return;
-          
-          // Ajouter la classe après le délai
-          currentAdElement.className = 'adsbygoogle';
-
-          // Charger l'annonce
-          try {
-            await (window.adsbygoogle = window.adsbygoogle || []).push({});
-            if (isMounted) {
-              isLoaded.current = true;
-              retryCount.current = 0;
-            }
-          } catch (pushError) {
-            console.warn('Error pushing ad:', pushError);
-            if (isMounted && retryCount.current < maxRetries) {
-              retryCount.current++;
-              setTimeout(loadAd, 1000);
-            }
-          }
-        } catch (error) {
-          console.error('Error loading AdSense ad:', error);
-          if (isMounted && retryCount.current < maxRetries) {
-            retryCount.current++;
-            setTimeout(loadAd, 1000);
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'data-ad-status') {
+          const status = adRef.current?.getAttribute('data-ad-status');
+          if (status) {
+            setAdStatus(status);
           }
         }
-      }
-    };
+      });
+    });
 
-    loadAd();
+    if (adRef.current) {
+      observer.observe(adRef.current, {
+        attributes: true,
+        attributeFilter: ['data-ad-status']
+      });
+    }
 
-    return () => {
-      isMounted = false;
-      isLoaded.current = false;
-      retryCount.current = 0;
-      
-      // Utiliser la référence capturée pour le nettoyage
-      if (currentAdElement) {
-        currentAdElement.innerHTML = '';
-        currentAdElement.className = '';
-      }
-    };
-  }, [slot]); // slot est la seule dépendance nécessaire
+    return () => observer.disconnect();
+  }, []);
 
-  // Styles par défaut pour une intégration discrète
-  const defaultStyle = {
+  // Styles par défaut selon le format
+  const defaultStyle = useMemo(() => ({
     display: 'block',
     textAlign: 'center',
     margin: '1rem auto',
     overflow: 'hidden',
-    width: '100%',
-    maxWidth: '100%',
-    minHeight: '100px',
-    backgroundColor: 'transparent',
+    ...(format === 'vertical' && {
+      width: '300px',
+      height: '600px'
+    }),
+    ...(format === 'horizontal' && {
+      width: '728px',
+      height: '90px'
+    }),
     ...style
-  };
+  }), [format, style]);
+
+  if (error) {
+    return (
+      <div 
+        className="ad-error" 
+        role="alert" 
+        aria-live="polite"
+        data-testid="ad-error"
+      >
+        <p>Impossible de charger la publicité</p>
+      </div>
+    );
+  }
 
   return (
     <div 
-      className={`ad-container ${className}`}
-      style={defaultStyle}
-      aria-label="Publicité"
+      key={path}
+      className={`ad-container ${format} ${responsive ? 'responsive' : ''}`}
       role="complementary"
+      aria-label="Publicité"
+      aria-busy={isLoading || adStatus === 'loading'}
+      data-testid="ad-container"
     >
       <ins
         ref={adRef}
-        style={{ 
-          display: 'block',
-          width: '100%',
-          maxWidth: '100%',
-          minHeight: style.minHeight || '100px'
-        }}
+        className="adsbygoogle"
+        style={defaultStyle}
         data-ad-client="ca-pub-9636110648577560"
         data-ad-slot={slot}
         data-ad-format={format}
         data-full-width-responsive={responsive}
+        data-ad-status={adStatus}
       />
+      {(isLoading || adStatus === 'loading') && (
+        <div 
+          className="ad-loading" 
+          aria-hidden="true"
+          data-testid="ad-loading"
+        >
+          <div className="loading-spinner"></div>
+        </div>
+      )}
     </div>
   );
+});
+
+AdBanner.propTypes = {
+  slot: PropTypes.string.isRequired,
+  format: PropTypes.oneOf(['auto', 'vertical', 'horizontal']),
+  responsive: PropTypes.bool,
+  style: PropTypes.object,
+  path: PropTypes.string
 };
+
+AdBanner.displayName = 'AdBanner';
 
 export default AdBanner; 
