@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import InternalNavigation from '../components/InternalNavigation';
+import InternalNavigation from '../components/layout/InternalNavigation';
 import PdfExport from '../components/PdfExport';
 import {
   IntroductionSection,

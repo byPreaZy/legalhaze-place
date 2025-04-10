@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import PdfExport from '../components/PdfExport';
-import InternalNavigation from '../components/InternalNavigation';
+import InternalNavigation from '../components/layout/InternalNavigation';
 import {
   CompositionSection,
   CannabinoidesSection,

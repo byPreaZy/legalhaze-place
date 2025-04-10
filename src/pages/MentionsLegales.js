@@ -6,32 +6,37 @@ const MentionsLegales = () => {
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <Helmet>
         <title>Mentions légales | LegalHaze</title>
-        <meta name="description" content="Mentions légales du site LegalHaze, développé par Clere Kévin (PreaZy) - Clere'ly design" />
+        <meta name="description" content="Mentions légales du site LegalHaze, développé par Clere Kévin (PreaZy) - <a href='https://clerely-design.fr' target='_blank' rel='noopener noreferrer'>Clere'ly design</a>" />
       </Helmet>
 
       <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">Mentions légales</h1>
 
       <div className="prose dark:prose-invert max-w-none">
-        <h2 className="text-2xl font-semibold mt-8 mb-4">1. Informations légales</h2>
+        <h2 className="text-2xl font-semibold mt-8 mb-4">1. Éditeur du site</h2>
         <p>
-          Le site LegalHaze est édité par :
-        </p>
-        <p>
-          <strong>Clere Kévin (PreaZy)</strong><br />
-          Auto-entrepreneur<br />
-          Société : Clere'ly design<br />
-          Adresse : [Votre adresse]<br />
+          Ce site est édité par :<br />
+          Clere Kévin (PreaZy)<br />
+          <a href='https://clerely-design.fr' target='_blank' rel='noopener noreferrer'>Clere'ly design</a><br />
           Email : clerelydesign@gmail.com<br />
-          Site web : www.clerely-design.fr<br />
-          SIRET : [Votre numéro SIRET]
+          Adresse : 55 impasse des buguets, 71500 Ratte<br />
+          Hébergement : IONOS
         </p>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">2. Hébergement</h2>
         <p>
           Ce site est hébergé par :<br />
-          [Nom de l'hébergeur]<br />
-          [Adresse de l'hébergeur]<br />
-          [Téléphone de l'hébergeur]
+          IONOS<br />
+          Adresse : 7 Place de la Gare, 57200 Sarreguemines<br />
+          Téléphone : 0970 808 911<br />
+          Site web : <a 
+            href="https://www.ionos.fr" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="hover:text-green-600 dark:hover:text-green-400 transition-colors"
+            aria-label="IONOS (ouvre dans un nouvel onglet)"
+          >
+            www.ionos.fr
+          </a>
         </p>
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">3. Propriété intellectuelle</h2>

@@ -5,21 +5,24 @@ Une plateforme web moderne dédiée à l'information et l'éducation sur le cann
 ## 📋 Description
 
 LegalHaze est une application web qui fournit des informations détaillées et scientifiques sur le cannabis, incluant :
-- Études comparatives internationales
-- Analyses des composés chimiques
+- Études comparatives internationales sur la légalisation
+- Analyses des composés chimiques du cannabis
 - Guide historique et législatif
-- Ressources éducatives
+- Ressources éducatives et annexes
+- Suivi des mises à jour et versions
 
 ## 🚀 Fonctionnalités
 
 - ♿ Accessibilité WCAG AA complète
-- 🌓 Mode sombre/clair
+- 🌓 Mode sombre/clair automatique
 - 📱 Design responsive et mobile-first
 - 🔍 SEO optimisé
-- 🔒 Conformité RGPD
+- 🔒 Conformité RGPD et gestion des cookies
 - 📊 Visualisations de données interactives
 - 📄 Export PDF des études
 - 🎨 Interface utilisateur moderne et intuitive
+- 🔄 Gestion des versions et mises à jour
+- 📈 Analytics et suivi des erreurs
 
 ## 🛠️ Technologies Utilisées
 
@@ -30,6 +33,7 @@ LegalHaze est une application web qui fournit des informations détaillées et s
   - React Router DOM
   - React Helmet (SEO)
   - Chart.js
+  - Google Analytics
 
 - **Outils de Développement:**
   - ESLint
@@ -41,7 +45,7 @@ LegalHaze est une application web qui fournit des informations détaillées et s
 
 1. Clonez le repository :
 ```bash
-git clone https://github.com/votre-username/legalhaze-place.git
+git clone https://github.com/byPreaZy/legalhaze-place.git
 cd legalhaze-place
 ```
 
@@ -87,13 +91,23 @@ L'application utilise un système de thèmes personnalisable via TailwindCSS ave
 legalhaze-place/
 ├── src/
 │   ├── components/     # Composants réutilisables
+│   │   ├── layout/    # Composants de mise en page
+│   │   ├── guide/     # Composants du guide
+│   │   └── etude/     # Composants des études
 │   ├── pages/         # Pages principales
 │   ├── utils/         # Utilitaires et helpers
 │   ├── styles/        # Styles globaux
-│   └── config/        # Configuration
+│   └── config/        # Configuration (version, thèmes, etc.)
 ├── public/            # Assets statiques
 └── ...
 ```
+
+## 🔄 Gestion des Versions
+
+Le projet utilise un système de versioning simple :
+- Version de l'application dans `src/config/version.js`
+- Date de mise à jour des études configurable
+- Historique des modifications documenté
 
 ## 🤝 Contribution
 
@@ -104,13 +118,16 @@ Les contributions sont les bienvenues ! Veuillez :
 4. Pousser vers la branche
 5. Ouvrir une Pull Request
 
-## 📄 Licence
+## 📝 Licence
 
-Ce projet est sous licence [MIT](LICENSE)
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
-## 📞 Contact
+## 👥 Auteurs
 
-Pour toute question ou suggestion, n'hésitez pas à ouvrir une issue ou à nous contacter directement.
+- **Clere Kévin (PreaZy)** - *Développement initial* - [Clere'ly design](https://clerely-design.fr)
 
----
-Développé avec ❤️ pour la communauté
+## 🙏 Remerciements
+
+- Toutes les sources citées dans les études
+- La communauté open source
+- Les contributeurs et testeurs

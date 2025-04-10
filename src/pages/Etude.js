@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 import PdfExport from '../components/PdfExport';
 import { EconomiqueSection, SanteSection, SocialSection } from '../components/etude';
-import InternalNavigation from '../components/InternalNavigation';
+import InternalNavigation from '../components/layout/InternalNavigation';
+import { ETUDE_LAST_UPDATE } from '../config/version';
 
 const Etude = () => {
   const [cookieConsent, setCookieConsent] = useState(false);
@@ -110,7 +111,7 @@ const Etude = () => {
               <div className="bg-yellow-50 dark:bg-yellow-900 p-4 rounded-lg">
                 <p className="text-sm text-yellow-800 dark:text-yellow-200">
                   Note : Cette étude est régulièrement mise à jour avec les dernières données disponibles.
-                  Dernière mise à jour : {new Date().toLocaleDateString('fr-FR')}
+                  Dernière mise à jour : {new Date(ETUDE_LAST_UPDATE).toLocaleDateString('fr-FR')}
                 </p>
               </div>
             </section>

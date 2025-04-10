@@ -6,7 +6,7 @@ const PolitiqueConfidentialite = () => {
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <Helmet>
         <title>Politique de confidentialité | LegalHaze</title>
-        <meta name="description" content="Politique de confidentialité du site LegalHaze, développé par Clere Kévin (PreaZy) - Clere'ly design" />
+        <meta name="description" content="Politique de confidentialité du site LegalHaze, développé par Clere Kévin (PreaZy) - <a href='https://clerely-design.fr' target='_blank' rel='noopener noreferrer'>Clere'ly design</a>" />
       </Helmet>
 
       <h1 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">Politique de confidentialité</h1>
@@ -18,7 +18,7 @@ const PolitiqueConfidentialite = () => {
 
         <h2 className="text-2xl font-semibold mt-8 mb-4">1. Introduction</h2>
         <p>
-          Cette politique de confidentialité explique comment LegalHaze, développé par Clere Kévin (PreaZy) - Clere'ly design, collecte, utilise et protège vos données personnelles lorsque vous utilisez notre site web.
+          Cette politique de confidentialité explique comment LegalHaze, développé par Clere Kévin (PreaZy) - <a href='https://clerely-design.fr' target='_blank' rel='noopener noreferrer'>Clere'ly design</a>, collecte, utilise et protège vos données personnelles lorsque vous utilisez notre site web.
         </p>
         <p>
           Nous nous engageons à protéger votre vie privée et à traiter vos données personnelles de manière transparente et sécurisée, conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés.
@@ -99,9 +99,10 @@ const PolitiqueConfidentialite = () => {
         </p>
         <p>
           Clere Kévin (PreaZy)<br />
-          Clere'ly design<br />
+          <a href='https://clerely-design.fr' target='_blank' rel='noopener noreferrer'>Clere'ly design</a><br />
           Email : clerelydesign@gmail.com<br />
-          Site web : www.clerely-design.fr
+          Adresse : 55 impasse des buguets, 71500 Ratte<br />
+          Hébergement : IONOS
         </p>
       </div>
     </div>

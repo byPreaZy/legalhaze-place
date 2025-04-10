@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
 import Home from './pages/Home';
 import Guide from './pages/Guide';
 import Etude from './pages/Etude';
@@ -13,15 +13,17 @@ import Cookies from './pages/Cookies';
 import MentionsLegales from './pages/MentionsLegales';
 import PolitiqueConfidentialite from './pages/PolitiqueConfidentialite';
 import GestionCookies from './pages/GestionCookies';
-import { ThemeProvider } from './components/ThemeProvider';
+import { ThemeProvider } from './components/layout/ThemeProvider';
 import { ContrastProvider } from './components/ContrastProvider';
-import AdManager from './components/AdManager';
-import FloatingAccessibilityControls from './components/FloatingAccessibilityControls';
-import FloatingThemeToggle from './components/FloatingThemeToggle';
-import CookieBanner from './components/CookieBanner';
+import AdManager from './components/AD/AdManager';
+import FloatingAccessibilityControls from './components/layout/FloatingAccessibilityControls';
+import FloatingThemeToggle from './components/layout/FloatingThemeToggle';
+import CookieConsent from './components/CookieConsent';
 import ScrollToTop from './components/ScrollToTop';
 import { initializeAdsense } from './utils/adsense';
-import './App.css';
+import { initGA, pageview, checkAnalyticsConsent } from './utils/analytics';
+import { setupGlobalErrorHandler } from './utils/errorHandler';
+import './styles/App.css';
 
 // Configuration des flags futurs de React Router
 const routerConfig = {
@@ -31,10 +33,31 @@ const routerConfig = {
   }
 };
 
+// Composant pour suivre les changements de page
+const PageTracker = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (checkAnalyticsConsent()) {
+      pageview(location.pathname);
+    }
+  }, [location]);
+
+  return null;
+};
+
 function App() {
   useEffect(() => {
     // Initialiser AdSense une seule fois au chargement de l'application
     initializeAdsense();
+    
+    // Initialiser Google Analytics si le consentement est donné
+    if (checkAnalyticsConsent()) {
+      initGA();
+    }
+    
+    // Configurer le gestionnaire d'erreurs global
+    setupGlobalErrorHandler();
   }, []);
 
   return (
@@ -42,6 +65,7 @@ function App() {
       <ContrastProvider>
         <Router {...routerConfig}>
           <ScrollToTop />
+          <PageTracker />
           <Helmet>
             <html lang="fr" />
             <title>LegalHaze - Ressources sur le Cannabis</title>
@@ -107,7 +131,7 @@ function App() {
             <Footer />
             <FloatingAccessibilityControls />
             <FloatingThemeToggle />
-            <CookieBanner />
+            <CookieConsent />
           </div>
         </Router>
       </ContrastProvider>
