@@ -8,6 +8,11 @@ export const initializeAdsense = () => {
   }
 
   return new Promise((resolve, reject) => {
+    // Vérifier si le document est en mode Quirks
+    if (document.compatMode === 'BackCompat') {
+      console.warn('Le document est en mode Quirks, ce qui peut affecter le rendu des publicités');
+    }
+
     // Vérifier le cache
     const cachedInit = localStorage.getItem('adsense_initialized');
     const cacheTimestamp = localStorage.getItem('adsense_init_timestamp');
@@ -48,6 +53,7 @@ export const initializeAdsense = () => {
         }
       }, 100);
 
+      // Timeout après 10 secondes
       setTimeout(() => {
         clearInterval(checkLoaded);
         reject(new Error('Timeout lors du chargement d\'AdSense'));
@@ -55,47 +61,26 @@ export const initializeAdsense = () => {
       return;
     }
 
-    // Créer et ajouter le script AdSense avec les attributs de sécurité appropriés
+    // Créer et ajouter le script AdSense
     const script = document.createElement('script');
+    script.type = 'text/javascript';
     script.async = true;
-    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9636110648577560';
+    script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9636110648577560`;
     script.crossOrigin = 'anonymous';
-    script.setAttribute('data-ad-status', 'loading');
-    script.setAttribute('referrerpolicy', 'origin');
-    
-    // Ajouter des attributs de sécurité supplémentaires
-    script.setAttribute('nonce', generateNonce());
-    script.setAttribute('integrity', 'sha384-[hash]'); // À remplacer par le hash réel
+    script.onerror = () => reject(new Error('Erreur lors du chargement du script AdSense'));
     
     script.onload = () => {
-      window.adsbygoogle = window.adsbygoogle || [];
-      localStorage.setItem('adsense_initialized', 'true');
-      localStorage.setItem('adsense_init_timestamp', Date.now().toString());
-      resolve();
-    };
-    
-    script.onerror = () => {
-      reject(new Error('Échec du chargement du script AdSense'));
+      if (window.adsbygoogle?.loaded) {
+        localStorage.setItem('adsense_initialized', 'true');
+        localStorage.setItem('adsense_init_timestamp', Date.now().toString());
+        resolve();
+      } else {
+        reject(new Error('AdSense n\'a pas été correctement initialisé'));
+      }
     };
 
     document.head.appendChild(script);
-
-    setTimeout(() => {
-      if (!window.adsbygoogle?.loaded) {
-        reject(new Error('Timeout lors du chargement d\'AdSense'));
-      }
-    }, 10000);
   });
-};
-
-/**
- * Génère un nonce aléatoire pour la sécurité CSP
- * @returns {string}
- */
-const generateNonce = () => {
-  const array = new Uint8Array(16);
-  window.crypto.getRandomValues(array);
-  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
 };
 
 /**

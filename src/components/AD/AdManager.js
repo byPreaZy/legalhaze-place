@@ -14,7 +14,7 @@ const AdManager = ({ location = 'content', showAds = true }) => {
   const [isAdBlocked, setIsAdBlocked] = useState(false);
   const [isAdSenseReady, setIsAdSenseReady] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const currentPath = useLocation().pathname;
+  const { pathname } = useLocation();
 
   useEffect(() => {
     let mounted = true;
@@ -24,6 +24,7 @@ const AdManager = ({ location = 'content', showAds = true }) => {
         const testAd = document.createElement('div');
         testAd.innerHTML = '&nbsp;';
         testAd.className = 'adsbox';
+        testAd.style.cssText = 'position: absolute; left: -9999px; top: -9999px;';
         document.body.appendChild(testAd);
         
         // Attendre que le DOM soit mis à jour
@@ -56,6 +57,11 @@ const AdManager = ({ location = 'content', showAds = true }) => {
         const blocked = await checkAdBlock();
         
         if (!blocked) {
+          // Vérifier si le document est en mode Quirks
+          if (document.compatMode === 'BackCompat') {
+            console.warn('Le document est en mode Quirks, ce qui peut affecter le rendu des publicités');
+          }
+
           await initializeAdsense();
           if (mounted) {
             setIsAdSenseReady(true);
@@ -78,7 +84,7 @@ const AdManager = ({ location = 'content', showAds = true }) => {
     return () => {
       mounted = false;
     };
-  }, [showAds]);
+  }, [showAds, pathname]);
 
   // Configuration des publicités en fonction de l'emplacement
   const adConfig = {
@@ -99,35 +105,22 @@ const AdManager = ({ location = 'content', showAds = true }) => {
       format: 'autorelaxed',
       responsive: true,
       style: { minHeight: '250px' }
-    },
-    footer: {
-      slot: '1078766035',
-      format: 'horizontal',
-      responsive: true,
-      style: { minHeight: '90px' }
     }
   };
 
-  // Si les publicités sont désactivées ou si AdBlock est actif
-  if (!showAds || isAdBlocked) {
+  if (!showAds || isAdBlocked || !isAdSenseReady || isLoading) {
     return null;
   }
 
-  // Si AdSense n'est pas prêt ou si le chargement est en cours
-  if (!isAdSenseReady || isLoading) {
-    return (
-      <div className="ad-loading-container" role="status" aria-label="Chargement de la publicité">
-        <div className="loading-spinner"></div>
-      </div>
-    );
-  }
-
-  const config = adConfig[location] || adConfig.content;
-
   return (
     <AdErrorBoundary>
-      <div className={`ad-wrapper ${location}-ad`} role="complementary" aria-label="Publicité">
-        <AdBanner {...config} path={currentPath} />
+      <div className={`ad-container ad-${location}`} data-path={pathname}>
+        <AdBanner
+          slot={adConfig[location]?.slot}
+          format={adConfig[location]?.format}
+          responsive={adConfig[location]?.responsive}
+          style={adConfig[location]?.style}
+        />
       </div>
     </AdErrorBoundary>
   );

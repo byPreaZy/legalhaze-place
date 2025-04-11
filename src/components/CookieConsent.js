@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { initGA } from '../utils/analytics';
+import Cookies from 'js-cookie';
+
+// Détecter si nous sommes en environnement de développement
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 const CookieConsent = () => {
   const [showConsent, setShowConsent] = useState(false);
@@ -12,7 +16,7 @@ const CookieConsent = () => {
   });
 
   useEffect(() => {
-    const consent = localStorage.getItem('cookieConsent');
+    const consent = Cookies.get('cookieConsent');
     if (!consent) {
       setShowConsent(true);
     } else {
@@ -51,12 +55,35 @@ const CookieConsent = () => {
   };
 
   const saveConsent = (acceptAll, preferences) => {
-    localStorage.setItem('cookieConsent', JSON.stringify({
+    // Options de base pour les cookies
+    const cookieOptions = {
+      expires: 365, // 1 an
+      path: '/',
+    };
+
+    // Ajouter des options de sécurité en production uniquement
+    if (!isDevelopment) {
+      cookieOptions.secure = true;
+      cookieOptions.sameSite = 'strict';
+    }
+
+    // En développement, utiliser une approche plus permissive
+    if (isDevelopment) {
+      cookieOptions.sameSite = 'lax';
+    }
+
+    Cookies.set('cookieConsent', JSON.stringify({
       accepted: true,
       acceptAll,
       preferences,
       timestamp: new Date().toISOString()
-    }));
+    }), cookieOptions);
+
+    // Sauvegarder les préférences individuelles
+    Object.entries(preferences).forEach(([key, value]) => {
+      Cookies.set(`cookie_${key}`, value, cookieOptions);
+    });
+
     setShowConsent(false);
   };
 

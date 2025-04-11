@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+    <!-- Page d'accueil -->
+    <url>
+        <loc>https://legalhaze.place/</loc>
+        <lastmod>2024-04-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Page À propos -->
+    <url>
+        <loc>https://legalhaze.place/about</loc>
+        <lastmod>2024-04-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Page Services -->
+    <url>
+        <loc>https://legalhaze.place/services</loc>
+        <lastmod>2024-04-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Page Contact -->
+    <url>
+        <loc>https://legalhaze.place/contact</loc>
+        <lastmod>2024-04-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Page Blog -->
+    <url>
+        <loc>https://legalhaze.place/blog</loc>
+        <lastmod>2024-04-10</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Page Mentions légales -->
+    <url>
+        <loc>https://legalhaze.place/mentions-legales</loc>
+        <lastmod>2024-04-10</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+
+    <!-- Page Politique de confidentialité -->
+    <url>
+        <loc>https://legalhaze.place/politique-confidentialite</loc>
+        <lastmod>2024-04-10</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+
+</urlset> 

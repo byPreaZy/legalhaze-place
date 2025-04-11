@@ -22,5 +22,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# documentation
+Doc.md
+
 # Local task list
 A faire.md

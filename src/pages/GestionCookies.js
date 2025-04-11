@@ -1,7 +1,117 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import Cookies from 'js-cookie';
+import { initGA } from '../utils/analytics';
+
+// Détecter si nous sommes en environnement de développement
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 const GestionCookies = () => {
+  const [preferences, setPreferences] = useState({
+    essential: true,
+    analytics: false,
+    preferences: false,
+    marketing: false
+  });
+
+  useEffect(() => {
+    // Charger les préférences existantes
+    const consent = Cookies.get('cookieConsent');
+    if (consent) {
+      const savedPreferences = JSON.parse(consent);
+      setPreferences(savedPreferences.preferences);
+    }
+  }, []);
+
+  const handleTogglePreference = (type) => {
+    if (type === 'essential') return; // Les cookies essentiels ne peuvent pas être désactivés
+
+    const newPreferences = {
+      ...preferences,
+      [type]: !preferences[type]
+    };
+    setPreferences(newPreferences);
+
+    // Options de base pour les cookies
+    const cookieOptions = {
+      expires: 365,
+      path: '/',
+    };
+
+    // Ajouter des options de sécurité en production uniquement
+    if (!isDevelopment) {
+      cookieOptions.secure = true;
+      cookieOptions.sameSite = 'strict';
+    }
+
+    // En développement, utiliser une approche plus permissive
+    if (isDevelopment) {
+      cookieOptions.sameSite = 'lax';
+    }
+
+    // Mettre à jour les cookies
+    Cookies.set('cookieConsent', JSON.stringify({
+      accepted: true,
+      acceptAll: false,
+      preferences: newPreferences,
+      timestamp: new Date().toISOString()
+    }), cookieOptions);
+
+    // Mettre à jour le cookie individuel
+    Cookies.set(`cookie_${type}`, newPreferences[type], cookieOptions);
+
+    // Gérer Google Analytics
+    if (type === 'analytics') {
+      if (newPreferences.analytics) {
+        initGA();
+      } else {
+        // Désactiver Google Analytics
+        window['ga-disable-G-XXXXXXXXXX'] = true;
+      }
+    }
+  };
+
+  const handleAcceptAll = () => {
+    const newPreferences = {
+      essential: true,
+      analytics: true,
+      preferences: true,
+      marketing: true
+    };
+    setPreferences(newPreferences);
+
+    // Options de base pour les cookies
+    const cookieOptions = {
+      expires: 365,
+      path: '/',
+    };
+
+    // Ajouter des options de sécurité en production uniquement
+    if (!isDevelopment) {
+      cookieOptions.secure = true;
+      cookieOptions.sameSite = 'strict';
+    }
+
+    // En développement, utiliser une approche plus permissive
+    if (isDevelopment) {
+      cookieOptions.sameSite = 'lax';
+    }
+
+    Cookies.set('cookieConsent', JSON.stringify({
+      accepted: true,
+      acceptAll: true,
+      preferences: newPreferences,
+      timestamp: new Date().toISOString()
+    }), cookieOptions);
+
+    // Mettre à jour tous les cookies individuels
+    Object.entries(newPreferences).forEach(([key, value]) => {
+      Cookies.set(`cookie_${key}`, value, cookieOptions);
+    });
+
+    initGA();
+  };
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <Helmet>
@@ -90,6 +200,81 @@ const GestionCookies = () => {
           Email : clerelydesign@gmail.com<br />
           Site web : www.clerely-design.fr
         </p>
+
+        <div className="mt-8 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+          <h2 className="text-2xl font-semibold mb-6">Gérer vos préférences</h2>
+          
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div>
+                <h3 className="font-semibold">Cookies Essentiels</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Toujours activés</p>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={preferences.essential}
+                  disabled
+                  className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div>
+                <h3 className="font-semibold">Cookies Analytiques</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Google Analytics</p>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={preferences.analytics}
+                  onChange={() => handleTogglePreference('analytics')}
+                  className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div>
+                <h3 className="font-semibold">Cookies de Préférences</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Thème, langue, etc.</p>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={preferences.preferences}
+                  onChange={() => handleTogglePreference('preferences')}
+                  className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div>
+                <h3 className="font-semibold">Cookies Marketing</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Publicités personnalisées</p>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={preferences.marketing}
+                  onChange={() => handleTogglePreference('marketing')}
+                  className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <button
+              onClick={handleAcceptAll}
+              className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors"
+            >
+              Tout accepter
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
