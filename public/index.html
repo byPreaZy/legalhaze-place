@@ -33,7 +33,10 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-21XHTTYKJ4');
+      // Configuration avec attributs SameSite plus restrictifs
+      gtag('config', 'G-21XHTTYKJ4', {
+        'cookie_flags': 'SameSite=Lax'
+      });
     </script>
     
     <title>LegalHaze - Cannabis et Cannabinoïdes</title>

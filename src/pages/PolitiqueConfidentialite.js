@@ -67,7 +67,26 @@ const PolitiqueConfidentialite = () => {
           Nous mettons en œuvre des mesures de sécurité appropriées pour protéger vos données personnelles contre tout accès, modification, divulgation ou destruction non autorisés.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">5. Vos droits</h2>
+        <h2 className="text-2xl font-semibold mt-8 mb-4">5. Cookies tiers et services Google</h2>
+        <p>
+          Notre site utilise plusieurs services fournis par Google et d'autres tiers qui peuvent déposer des cookies sur votre appareil :
+        </p>
+        <ul className="list-disc pl-5 space-y-2 mb-4">
+          <li>
+            <strong>Google Analytics</strong> : Nous utilisons Google Analytics pour analyser l'utilisation de notre site. Ce service dépose des cookies pour collecter des informations sur votre navigation. Ces cookies peuvent être configurés avec l'attribut "SameSite=None;Secure", ce qui peut générer des avertissements dans votre navigateur.
+          </li>
+          <li>
+            <strong>Google AdSense</strong> : Nous utilisons AdSense pour afficher des publicités pertinentes. Ce service utilise des cookies pour personnaliser les annonces et analyser les performances.
+          </li>
+          <li>
+            <strong>Autres services Google</strong> : Si vous voyez des cookies provenant de domaines Google (comme docs.google.com, drive.google.com), ils sont associés à des intégrations de contenus externes ou à des services Google que vous avez précédemment utilisés.
+          </li>
+        </ul>
+        <p>
+          <strong>Votre contrôle sur ces cookies</strong> : Les navigateurs modernes comme Chrome limitent progressivement l'utilisation des cookies tiers pour protéger votre vie privée. Les avertissements que vous pourriez voir concernant les cookies tiers sont une information et n'indiquent pas nécessairement un problème de sécurité. Vous pouvez toujours contrôler ces cookies via les paramètres de votre navigateur ou notre panneau de gestion des cookies.
+        </p>
+
+        <h2 className="text-2xl font-semibold mt-8 mb-4">6. Vos droits</h2>
         <p>
           Conformément au RGPD, vous disposez des droits suivants concernant vos données personnelles :
         </p>
@@ -83,17 +102,17 @@ const PolitiqueConfidentialite = () => {
           Pour exercer ces droits, vous pouvez nous contacter à l'adresse suivante : clerelydesign@gmail.com
         </p>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">6. Cookies</h2>
+        <h2 className="text-2xl font-semibold mt-8 mb-4">7. Cookies</h2>
         <p>
           Notre site utilise des cookies pour améliorer votre expérience de navigation. Pour plus d'informations sur l'utilisation des cookies, veuillez consulter notre page <a href="/cookies" className="text-green-600 dark:text-green-400 hover:underline">Gestion des cookies</a>.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">7. Modifications de la politique</h2>
+        <h2 className="text-2xl font-semibold mt-8 mb-4">8. Modifications de la politique</h2>
         <p>
           Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment. Les modifications prendront effet dès leur publication sur notre site. Nous vous encourageons à consulter régulièrement cette page pour rester informé des changements.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">8. Contact</h2>
+        <h2 className="text-2xl font-semibold mt-8 mb-4">9. Contact</h2>
         <p>
           Pour toute question concernant cette politique de confidentialité ou vos données personnelles, vous pouvez nous contacter à :
         </p>

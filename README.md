@@ -1,10 +1,10 @@
-# 🌿 LegalHaze
+# 🌿 LegalHaze (v1.1.3)
 
 Une plateforme web moderne dédiée à l'information et l'éducation sur le cannabis, développée avec React et TailwindCSS.
 
 ## 📋 Description
 
-LegalHaze est une application web qui fournit des informations détaillées et scientifiques sur le cannabis, incluant :
+LegalHaze est une application web qui fournit des informations détaillées et scientifiquement validées sur le cannabis, incluant :
 - Études comparatives internationales sur la légalisation
 - Analyses des composés chimiques du cannabis
 - Guide historique et législatif
@@ -22,8 +22,16 @@ LegalHaze est une application web qui fournit des informations détaillées et s
 - 📄 Export PDF des études
 - 🎨 Interface utilisateur moderne et intuitive
 - 🔄 Gestion des versions et mises à jour
-- 📈 Analytics et suivi des erreurs
-- 💰 Intégration Google AdSense optimisée
+- 📈 Analytics respectueux de la vie privée
+- 💰 Intégration publicitaire optimisée
+
+## 🚨 Nouveautés v1.1.3
+
+- ✅ Optimisation des cookies tiers avec configuration SameSite améliorée 
+- ✅ Mise à jour des en-têtes de sécurité CSP
+- ✅ Amélioration de la politique de confidentialité concernant les cookies
+- ✅ Optimisation des performances de chargement des publicités
+- ✅ Correction de bugs mineurs
 
 ## 🛠️ Technologies Utilisées
 
@@ -31,11 +39,10 @@ LegalHaze est une application web qui fournit des informations détaillées et s
   - React 18
   - TailwindCSS
   - Framer Motion
-  - React Router DOM
-  - React Helmet (SEO)
+  - React Router DOM v6+
+  - React Helmet Async (SEO)
   - Chart.js
-  - Google Analytics
-  - Google AdSense
+  - Google Analytics (configuré avec respect de la vie privée)
 
 - **Outils de Développement:**
   - ESLint
@@ -70,23 +77,36 @@ L'application sera accessible à l'adresse [http://localhost:3000](http://localh
 - `npm test` : Lance les tests
 - `npm run lint` : Vérifie le code avec ESLint
 - `npm run format` : Formate le code avec Prettier
-- `npm run deploy` : Déploie l'application sur GitHub Pages
+- `npm run deploy` : Déploie l'application
 
 ## 🌐 Normes et Conformité
 
 - **Accessibilité:** WCAG 2.1 niveau AA
 - **Performance:** Core Web Vitals optimisés
 - **SEO:** Meta tags dynamiques et structure sémantique
-- **RGPD:** Gestion des cookies et données personnelles
+- **RGPD:** Gestion des cookies et données personnelles (panneau de consentement amélioré)
+- **Sécurité:** En-têtes CSP, HSTS et autres pratiques recommandées
 - **Compatibilité:** Support des navigateurs modernes
+
+## 🔒 Cookies et Confidentialité
+
+L'application utilise plusieurs types de cookies :
+- **Essentiels :** Nécessaires au fonctionnement du site (toujours activés)
+- **Analytiques :** Pour comprendre l'utilisation du site (configurables par l'utilisateur)
+- **Préférences :** Pour mémoriser les choix de l'utilisateur (configurables)
+- **Marketing :** Pour les publicités personnalisées (désactivés par défaut)
+
+Les paramètres de cookies sont configurés avec des attributs de sécurité optimisés :
+- `SameSite=Lax` pour les cookies internes
+- Configuration sécurisée pour les services tiers
 
 ## 🎨 Thèmes et Personnalisation
 
 L'application utilise un système de thèmes personnalisable via TailwindCSS avec :
-- Thème clair/sombre automatique
-- Contraste élevé pour l'accessibilité
+- Thème clair/sombre automatique basé sur les préférences système
+- Mode contraste élevé pour l'accessibilité
 - Variables CSS personnalisées
-- Animations fluides et réduites si préféré
+- Animations fluides et réduites si préféré par l'utilisateur
 
 ## 📚 Structure du Projet
 
@@ -118,19 +138,27 @@ legalhaze-place/
 
 ## 🔄 Gestion des Versions
 
-Le projet utilise un système de versioning simple :
-- Version de l'application dans `src/config/version.js`
-- Date de mise à jour des études configurable
-- Historique des modifications documenté
+Le projet utilise un système de versioning sémantique :
+- **MAJEUR.MINEUR.PATCH** (exemple : 1.1.3)
+- Version de l'application définie dans `src/config/version.js`
+- Historique des modifications documenté dans le CHANGELOG
+
+### Versions :
+- **1.0.0** : Version initiale
+- **1.1.0** : Ajout des fonctionnalités d'accessibilité avancées
+- **1.1.1** : Correctifs de bugs et améliorations mineures
+- **1.1.2** : Optimisation des performances
+- **1.1.3** : Amélioration de la gestion des cookies et de la sécurité
 
 ## 💰 Gestion des Publicités
 
-Le projet intègre Google AdSense avec :
+Le projet intègre la publicité avec :
 - Système de cache pour optimiser les performances
 - Gestion des erreurs et rechargement intelligent
 - Support du mode sombre/clair
 - Respect des normes d'accessibilité
 - Intégration responsive sur tous les appareils
+- Configuration avancée des cookies pour respecter la vie privée
 
 ## 🤝 Contribution
 

@@ -6,7 +6,9 @@ export const initGA = () => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('config', GA_TRACKING_ID, {
       page_path: window.location.pathname,
-      cookie_flags: 'SameSite=None;Secure'
+      // Utilisation de SameSite=Lax pour réduire les avertissements de cookies tiers
+      // Enlevez cette option pour utiliser les paramètres par défaut de Google Analytics
+      // cookie_flags: 'SameSite=None;Secure'
     });
   }
 };
