@@ -1,7 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useTheme } from '../components/layout/ThemeProvider';
 
 const MentionsLegales = () => {
+  useTheme();
+  
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <Helmet>

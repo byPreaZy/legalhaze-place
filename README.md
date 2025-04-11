@@ -32,6 +32,7 @@ LegalHaze est une application web qui fournit des informations détaillées et s
 - ✅ Amélioration de la politique de confidentialité concernant les cookies
 - ✅ Optimisation des performances de chargement des publicités
 - ✅ Correction de bugs mineurs
+- ✅ Mise à jour des informations de contact pour la gestion des données personnelles
 
 ## 🛠️ Technologies Utilisées
 
@@ -176,6 +177,7 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 ## 👥 Auteurs
 
 - **Clere Kévin (PreaZy)** - *Développement initial* - [Clere'ly design](https://clerely-design.fr)
+  - Contact : clerely-design@gmail.com
 
 ## 🙏 Remerciements
 

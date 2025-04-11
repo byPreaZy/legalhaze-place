@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { initGA } from '../utils/analytics';
 import Cookies from 'js-cookie';
+import { useTheme } from '../components/layout/ThemeProvider';
 
 // Détecter si nous sommes en environnement de développement
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 const CookieConsent = () => {
+  const { theme } = useTheme();
   const [showConsent, setShowConsent] = useState(false);
   const [preferences, setPreferences] = useState({
     essential: true,
@@ -20,10 +22,15 @@ const CookieConsent = () => {
     if (!consent) {
       setShowConsent(true);
     } else {
-      const savedPreferences = JSON.parse(consent);
-      setPreferences(savedPreferences.preferences);
-      if (savedPreferences.preferences.analytics) {
-        initGA();
+      try {
+        const savedPreferences = JSON.parse(consent);
+        setPreferences(savedPreferences.preferences);
+        if (savedPreferences.preferences.analytics) {
+          initGA();
+        }
+      } catch (error) {
+        console.error("Erreur lors du parsing des préférences de cookies:", error);
+        setShowConsent(true);
       }
     }
   }, []);
@@ -84,6 +91,14 @@ const CookieConsent = () => {
       Cookies.set(`cookie_${key}`, value, cookieOptions);
     });
 
+    // Si les préférences sont acceptées, sauvegarder le thème actuel
+    if (preferences.preferences) {
+      Cookies.set('theme', theme, cookieOptions);
+    } else {
+      // Si les préférences sont refusées, supprimer le cookie de thème
+      Cookies.remove('theme', { path: '/' });
+    }
+
     setShowConsent(false);
   };
 
@@ -141,7 +156,7 @@ const CookieConsent = () => {
                   className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
                 />
                 <label htmlFor="preferences" className="ml-2 text-sm text-gray-700 dark:text-gray-300">
-                  Cookies de préférences
+                  Cookies de préférences (thème clair/sombre, etc.)
                 </label>
               </div>
               <div className="flex items-center">

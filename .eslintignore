@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+build/
+dist/
+
+# Test files
+**/*.test.js
+**/*.spec.js
+coverage/
+
+# Configuration files
+.next/
+next.config.js
+
+# Environment files
+.env*
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Cache
+.cache/
+.eslintcache
+
+# Misc
+*.log
+*.lock 

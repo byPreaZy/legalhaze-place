@@ -9,10 +9,9 @@ import Etude from './pages/Etude';
 import Annexes from './pages/Annexes';
 import ComposesCannabis from './pages/ComposesCannabis';
 import Accessibilite from './pages/Accessibilite';
-import Cookies from './pages/Cookies';
+import CookieManager from './pages/CookieManager';
 import MentionsLegales from './pages/MentionsLegales';
 import PolitiqueConfidentialite from './pages/PolitiqueConfidentialite';
-import GestionCookies from './pages/GestionCookies';
 import { ThemeProvider } from './components/layout/ThemeProvider';
 import { ContrastProvider } from './components/ContrastProvider';
 import AdManager from './components/AD/AdManager';
@@ -119,10 +118,9 @@ function App() {
                 <Route path="/annexes" element={<Annexes />} />
                 <Route path="/composes-cannabis" element={<ComposesCannabis />} />
                 <Route path="/accessibilite" element={<Accessibilite />} />
-                <Route path="/cookies" element={<Cookies />} />
+                <Route path="/cookies" element={<CookieManager />} />
                 <Route path="/mentions-legales" element={<MentionsLegales />} />
                 <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
-                <Route path="/gestion-cookies" element={<GestionCookies />} />
               </Routes>
             </main>
             {/* Bannière publicitaire en bas de page, juste avant le footer */}

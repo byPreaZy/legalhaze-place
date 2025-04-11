@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 const ThemeContext = createContext();
 
@@ -12,11 +13,18 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
-    // Vérifie d'abord le localStorage
+    // On vérifie d'abord dans les cookies
+    const cookieTheme = Cookies.get('theme');
+    if (cookieTheme) {
+      return cookieTheme;
+    }
+    
+    // Ensuite on vérifie dans localStorage (pour la rétrocompatibilité)
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       return savedTheme;
     }
+    
     // Sinon, utilise les préférences système
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
@@ -27,7 +35,15 @@ export const ThemeProvider = ({ children }) => {
     root.classList.remove('light', 'dark');
     root.classList.add(theme);
     
-    // Sauvegarde la préférence
+    // Sauvegarde la préférence dans le cookie et localStorage
+    const cookieOptions = {
+      expires: 365, // 1 an
+      path: '/',
+      sameSite: process.env.NODE_ENV === 'development' ? 'lax' : 'strict',
+      secure: process.env.NODE_ENV !== 'development'
+    };
+    
+    Cookies.set('theme', theme, cookieOptions);
     localStorage.setItem('theme', theme);
   }, [theme]);
 
