@@ -84,7 +84,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000319435" 
+                  href="https://www.legifrance.gouv.fr/search/all?tab_selection=all&searchField=ALL&query=Cannabis&page=1&init=true" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="hover:text-green-600 dark:hover:text-green-400 transition-colors"
